@@ -16,9 +16,86 @@ class _HomePageState extends State<HomePage> {
         title: const Text('API Carros'),
         centerTitle: true,
       ),
-      body: const Padding(
+      body: Padding(
         padding: EdgeInsets.all(10),
-        child: Text('Olá, mundo'),
+        child: GridView.count(
+          crossAxisCount: 1,
+          mainAxisSpacing: 10,
+          children: [
+            Container(
+              color: Colors.blue,
+              width: double.infinity,
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Nome do Modelo: Onix Plus'),
+                    SizedBox(height: 10,),
+                    Text('ano: 2015'),
+                    SizedBox(height: 10,),
+                    Text('Combustivel: Flex'),
+                    SizedBox(height: 10,),
+                    Text('Núm. Portas: 4'),
+                    SizedBox(height: 10,),
+                    Text('Cor: Bege'),
+                    SizedBox(height: 10,),
+                    Text('Valor: RS 50.000'),
+                    SizedBox(height: 10,),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.blue,
+              width: double.infinity,
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Nome do Modelo: Onix Plus'),
+                    SizedBox(height: 10,),
+                    Text('ano: 2015'),
+                    SizedBox(height: 10,),
+                    Text('Combustivel: Flex'),
+                    SizedBox(height: 10,),
+                    Text('Núm. Portas: 4'),
+                    SizedBox(height: 10,),
+                    Text('Cor: Bege'),
+                    SizedBox(height: 10,),
+                    Text('Valor: RS 50.000'),
+                    SizedBox(height: 10,),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.blue,
+              width: double.infinity,
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Nome do Modelo: Onix Plus'),
+                    SizedBox(height: 10,),
+                    Text('ano: 2015'),
+                    SizedBox(height: 10,),
+                    Text('Combustivel: Flex'),
+                    SizedBox(height: 10,),
+                    Text('Núm. Portas: 4'),
+                    SizedBox(height: 10,),
+                    Text('Cor: Bege'),
+                    SizedBox(height: 10,),
+                    Text('Valor: RS 50.000'),
+                    SizedBox(height: 10,),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
