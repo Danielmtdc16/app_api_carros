@@ -23,25 +23,55 @@ class _HomePageState extends State<HomePage> {
           mainAxisSpacing: 10,
           children: [
             Container(
-              color: Colors.blue,
+              decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
               width: double.infinity,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Nome do Modelo: Onix Plus'),
-                    SizedBox(height: 10,),
-                    Text('ano: 2015'),
-                    SizedBox(height: 10,),
-                    Text('Combustivel: Flex'),
-                    SizedBox(height: 10,),
-                    Text('Núm. Portas: 4'),
-                    SizedBox(height: 10,),
-                    Text('Cor: Bege'),
-                    SizedBox(height: 10,),
-                    Text('Valor: RS 50.000'),
-                    SizedBox(height: 10,),
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Nome do Modelo: Onix Plus'),
+                            SizedBox(height: 10,),
+                            Text('ano: 2015'),
+                            SizedBox(height: 10,),
+                            Text('Combustivel: Flex'),
+                            SizedBox(height: 10,),
+                            Text('Núm. Portas: 4'),
+                            SizedBox(height: 10,),
+                            Text('Cor: Bege'),
+                            SizedBox(height: 10,),
+                            Text('Valor: RS 50.000'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Center(
+                              child: Text('Eu quero'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    
                   ],
                 ),
               ),
