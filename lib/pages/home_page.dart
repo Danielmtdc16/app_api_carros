@@ -37,39 +37,27 @@ class _HomePageState extends State<HomePage> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 20),
+              margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(10))
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Nome: ${_cars[index].nomeModelo}"),
-                    SizedBox(height: 20,),
-                    Text("Valor: R\$ ${_cars[index].valor}"),
-                    SizedBox(height: 20,),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Center(child: Text("Eu quero")),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.all(10.0),
+                child: ListTile(
+                  title: Text("${_cars[index].nomeModelo}"),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Valor: R\$ ${_cars[index].valor}"),
+                      Text("Ano: ${_cars[index].ano}"),
+                      Text("Combustível: ${_cars[index].combustivel}"),
+                      Text("Núm. Portas: ${_cars[index].numPortas}"),
+                      Text("Cor: ${_cars[index].cor}"),
+                    ],
+                  ),
+                  leading: Text("1"),
+                  isThreeLine: true,
                 ),
               ),
             );
