@@ -1,3 +1,4 @@
+import 'package:app_api_carros/pages/purchase_registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_api_carros/util/ConsultaAPI.dart';
 import 'package:app_api_carros/models/Car.dart';
@@ -13,6 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   List<Car> _cars = [];
+
+  openPurchaseRegistrationScreen(BuildContext context, Car car) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => PurchaseRegistrationPage(car: car,)));
+  }
 
   @override
   void initState() {
@@ -31,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('API Carros'),
         centerTitle: true,
+
       ),
       body: Padding(
         padding: EdgeInsets.all(10),
@@ -54,6 +60,23 @@ class _HomePageState extends State<HomePage> {
                       Text("Combustível: ${_cars[index].combustivel}"),
                       Text("Núm. Portas: ${_cars[index].numPortas}"),
                       Text("Cor: ${_cars[index].cor}"),
+                      SizedBox(height: 20,),
+                      InkWell(
+                        onTap: () {
+                          openPurchaseRegistrationScreen(context, _cars[index]);
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text("Eu quero", style: TextStyle(color: Colors.white),),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   leading: Text("1"),
