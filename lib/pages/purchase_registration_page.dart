@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:app_api_carros/widgets/text_field.dart';
 import 'package:app_api_carros/models/Car.dart';
-import 'package:app_api_carros/pages/purchase_registration_page.dart';
+import 'package:app_api_carros/database/db.dart';
+
 
 class PurchaseRegistrationPage extends StatefulWidget {
 
@@ -16,6 +17,18 @@ class PurchaseRegistrationPage extends StatefulWidget {
 class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
 
   final _formKey = GlobalKey<FormState>();
+
+  final _nomeController = TextEditingController();
+  final _cpfController = TextEditingController();
+
+  _savePurchase() async {
+    String nomeUser = _nomeController.text;
+    String cpfUser = _cpfController.text;
+
+    if (nomeUser.isNotEmpty && cpfUser.isNotEmpty) {
+      await DB.instance.insertPurchase(nomeUser, cpfUser, widget.car!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +72,16 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
                   ),
                   SizedBox(height: 40,),
                   MeuTextField(
-                  hintTextInput: "Nome completo",
-                    style: TextStyle(
-                      color: Colors.black45,
-                      fontSize: 18,
-                    ),
+                    controller: _nomeController,
+                    hintTextInput: "Nome completo",
+                      style: TextStyle(
+                        color: Colors.black45,
+                        fontSize: 18,
+                      ),
                   ),
                   SizedBox(height: 20,),
                   MeuTextField(
+                    controller: _cpfController,
                       hintTextInput: "CPF",
                       style: TextStyle(
                         color: Colors.black45,
@@ -74,19 +89,22 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
                       )
                   ),
                   SizedBox(height: 20,),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(5)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18),
-                      child: Center(
-                        child: Text(
-                          "Enviar",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18
+                  InkWell(
+                    onTap: _savePurchase,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: Center(
+                          child: Text(
+                            "Enviar",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18
+                            ),
                           ),
                         ),
                       ),
