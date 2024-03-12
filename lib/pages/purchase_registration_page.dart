@@ -6,9 +6,9 @@ import 'package:app_api_carros/database/db.dart';
 
 class PurchaseRegistrationPage extends StatefulWidget {
 
-  Car? car;
+  final Car? car;
 
-  PurchaseRegistrationPage({Key? key, this.car}) : super(key: key);
+  const PurchaseRegistrationPage({Key? key, this.car}) : super(key: key);
 
   @override
   State<PurchaseRegistrationPage> createState() => _PurchaseRegistrationPageState();

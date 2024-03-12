@@ -34,18 +34,76 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('API Carros'),
-        centerTitle: true,
-
+        backgroundColor: Color(0xFF3B455E),
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+          fontSize: 30,
+        ),
+        toolbarHeight: 150,
+        leading: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text('Boa tarde,', style: TextStyle(
+                          color: Colors.white54,
+                          fontSize: 20
+                        ),),
+                        Text('Daniel M. Castro', style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: IconButton(
+                        onPressed: (){},
+                        icon: Icon(Icons.person_pin, size: 45,),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40,),
+              Text('Opções de Carros para você',
+                style: TextStyle(
+                  fontSize: 18
+                ),
+              ),
+            ],
+          ),
+        ),
+        leadingWidth: double.infinity,
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(15),
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF32C8FB),
+                    Color(0xFF1C6DE3),
+                    Color(0xFF1141C1)
+                  ]
+                ),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
@@ -88,6 +146,7 @@ class _HomePageState extends State<HomePage> {
           itemCount: _cars.length,
         ),
       ),
+      backgroundColor: Color(0xFF3B455E),
     );
   }
 
