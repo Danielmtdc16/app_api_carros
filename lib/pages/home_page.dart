@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.topCenter,
                       child: IconButton(
                         onPressed: (){},
-                        icon: Icon(Icons.person_pin, size: 45,),
+                        icon: Icon(Icons.person_pin, size: 50,),
                       ),
                     ),
                   ),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             return Container(
-              margin: EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: 20),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                     Color(0xFF1141C1)
                   ]
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
