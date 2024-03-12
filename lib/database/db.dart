@@ -49,7 +49,7 @@ class DB {
     );
   ''';
 
-  Future<Map<String, dynamic>?> _getAllUsers() async {
+  Future<Map<String, dynamic>?> getAllUsers() async {
     final Database db = await instance.database;
 
     final List<Map<String, dynamic>> maps = await db.query('user', limit: 1);
@@ -58,18 +58,18 @@ class DB {
 
   }
 
-  Future<void> insertPurchase(String nomeUser, String cpfUser, Car car) async {
+  Future<int> insertPurchase(String nomeUser, String cpfUser, Car car) async {
     final Database db = await instance.database;
 
-    final Map<String, dynamic>? user = await _getAllUsers();
+    final Map<String, dynamic>? user = await getAllUsers();
 
     if (user == null) {
       await _insertUser(nomeUser, cpfUser);
     }
 
-    print(await _getAllUsers());
-
-    await db.insert(
+    print(await getAllUsers());
+    try {
+      await db.insert(
         'purchaseHistory',
         {
           'dataCompra': DateTime.now().microsecondsSinceEpoch,
@@ -82,8 +82,13 @@ class DB {
           'nomeUser': nomeUser,
           'cpfUser': cpfUser,
         },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+      return 1;
+    } catch (e) {
+      return 0;
+    }
+
   }
 
   Future<void> _insertUser(String nomeUser, String cpfUser) async {

@@ -16,6 +16,8 @@ class PurchaseRegistrationPage extends StatefulWidget {
 
 class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
 
+  String _textAviso = 'Compra concluída com Sucesso!';
+
   final _formKey = GlobalKey<FormState>();
 
   final _nomeController = TextEditingController();
@@ -26,8 +28,55 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
     String cpfUser = _cpfController.text;
 
     if (nomeUser.isNotEmpty && cpfUser.isNotEmpty) {
-      await DB.instance.insertPurchase(nomeUser, cpfUser, widget.car!);
+      int resultado = await DB.instance.insertPurchase(nomeUser, cpfUser, widget.car!);
+      if (resultado == 0) {
+        setState(() {
+          _textAviso = 'Erro ao processa compra!';
+        });
+      }
+    } else {
+      setState(() {
+        _textAviso = 'Erro ao processa compra!';
+      });
     }
+  }
+
+  void _exibirMensagemPosOperacao(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Situação da Compra'),
+            content: Text(_textAviso),
+            actions: <Widget>[
+              TextButton(onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.popUntil(context, (route) => route.isFirst);
+              }, child: Text('Fechar'))
+            ],
+          );
+        }
+    );
+  }
+
+  Future<void> _preencherCampos() async {
+
+    Map<String, dynamic>? user = await DB.instance.getAllUsers();
+
+    if (user != null) {
+      setState(() {
+        _nomeController.text = user['nomeUser'];
+        _cpfController.text = user['cpfUser'];
+      });
+    }
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _preencherCampos();
   }
 
   @override
@@ -90,7 +139,10 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
                   ),
                   SizedBox(height: 20,),
                   InkWell(
-                    onTap: _savePurchase,
+                    onTap: () {
+                      _savePurchase();
+                      _exibirMensagemPosOperacao(context);
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.black,
