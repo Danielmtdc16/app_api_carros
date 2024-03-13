@@ -16,38 +16,37 @@ class PurchaseRegistrationPage extends StatefulWidget {
 
 class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
 
-  String _textAviso = 'Compra concluída com Sucesso!';
-
+  String _warningText = 'Compra concluída com Sucesso!';
   final _formKey = GlobalKey<FormState>();
 
-  final _nomeController = TextEditingController();
+  final _nameController = TextEditingController();
   final _cpfController = TextEditingController();
 
   _savePurchase() async {
-    String nomeUser = _nomeController.text;
+    String nomeUser = _nameController.text;
     String cpfUser = _cpfController.text;
 
     if (nomeUser.isNotEmpty && cpfUser.isNotEmpty) {
       int resultado = await DB.instance.insertPurchase(nomeUser, cpfUser, widget.car!);
       if (resultado == 0) {
         setState(() {
-          _textAviso = 'Erro ao processa compra!';
+          _warningText = 'Erro ao processa compra!';
         });
       }
     } else {
       setState(() {
-        _textAviso = 'Erro ao processa compra!';
+        _warningText = 'Erro ao processa compra!';
       });
     }
   }
 
-  void _exibirMensagemPosOperacao(BuildContext context) {
+  void _displayPostOperationMessage(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Situação da Compra'),
-            content: Text(_textAviso),
+            content: Text(_warningText),
             actions: <Widget>[
               TextButton(onPressed: () {
                 Navigator.of(context).pop();
@@ -59,13 +58,13 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
     );
   }
 
-  Future<void> _preencherCampos() async {
+  Future<void> _fillInFields() async {
 
     Map<String, dynamic>? user = await DB.instance.getAllUsers();
 
     if (user != null) {
       setState(() {
-        _nomeController.text = user['nomeUser'];
+        _nameController.text = user['nomeUser'];
         _cpfController.text = user['cpfUser'];
       });
     }
@@ -76,7 +75,7 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _preencherCampos();
+    _fillInFields();
   }
 
   @override
@@ -85,19 +84,21 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
       appBar: AppBar(
         title: Text('Registro de Compra'),
         titleTextStyle: TextStyle(
-          color: Colors.black45,
-          fontSize: 18
+          color: Colors.white,
+          fontSize: 25
         ),
         leading: IconButton(
-          icon: Icon(Icons.keyboard_return_outlined,
-            color: Colors.black,
+          icon: Icon(Icons.arrow_back_outlined,
+            size: 30,
+            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        toolbarHeight: 100,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF3B455E),
         shadowColor: Colors.transparent,
       ),
       body: SafeArea(
@@ -113,15 +114,90 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
                 children: [
                   SizedBox(height: 20,),
                   Text(
-                    'Preencha os campos \ncom seus dados',
+                    'Item para compra',
                     style: TextStyle(
                       color: Colors.black87,
-                      fontSize: 30,
+                      fontSize: 25,
                     ),
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(height: 15,),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(right: 15, left: 15, top: 30, bottom: 30),
+                            decoration: BoxDecoration(
+                              color: Colors.black45,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.directions_car,
+                                size: 40,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        Expanded(
+                          flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text('${widget.car!.nomeModelo}',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Text('${widget.car!.numPortas} PORTAS',
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),),
+                                Text('${widget.car!.combustivel}',
+                                  style: TextStyle(
+                                    fontSize: 20
+                                  ),
+                                ),
+                                Text('${widget.car!.ano}',
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),),
+                                Text('${widget.car!.cor}',
+                                  style: TextStyle(
+                                      fontSize: 20
+                                  ),),
+                                Text('R\$ ${widget.car!.valor.toStringAsFixed(3)}',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  Text(
+                    'Preencha os campos',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 25,
+                    ),
+                  ),
+                  SizedBox(height: 15,),
                   MeuTextField(
-                    controller: _nomeController,
+                    controller: _nameController,
                     hintTextInput: "Nome completo",
                       style: TextStyle(
                         color: Colors.black45,
@@ -141,12 +217,12 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
                   InkWell(
                     onTap: () {
                       _savePurchase();
-                      _exibirMensagemPosOperacao(context);
+                      _displayPostOperationMessage(context);
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.black,
-                        borderRadius: BorderRadius.circular(5)
+                        borderRadius: BorderRadius.circular(15)
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(18),

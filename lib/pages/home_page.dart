@@ -2,9 +2,6 @@ import 'package:app_api_carros/pages/purchase_registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_api_carros/util/ConsultaAPI.dart';
 import 'package:app_api_carros/models/Car.dart';
-import 'package:app_api_carros/database/db.dart';
-import 'package:app_api_carros/widgets/text_field.dart';
-import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -162,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(height: 15,),
-                            Text('${_cars[index].valor}',
+                            Text('R\$ ${_cars[index].valor.toStringAsFixed(3)}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

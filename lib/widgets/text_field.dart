@@ -21,16 +21,21 @@ class MeuTextField extends StatelessWidget {
       decoration: InputDecoration(
           hintText: hintTextInput,
           hintStyle: const TextStyle(color: Colors.black54),
-          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(
-              color: Colors.transparent
-          ),),
-          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
               color: Colors.transparent
           ),),
           fillColor: Color(0xFFABABAB),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          suffixIcon: icone
+          suffixIcon: icone,
       ),
       style: style,
       controller: controller,

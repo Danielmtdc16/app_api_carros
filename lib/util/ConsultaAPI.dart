@@ -29,9 +29,6 @@ class ConsultaApi {
       }
     }
 
-    print('Dados que serão enviados para a API: ${purchasesToBeShipped[0]['nomeCarro']}');
-    print('Entrei no try');
-
     if (purchasesToBeShipped.isNotEmpty) {
       try {
         Map<String, String> headers = {"Content-Type":  "application/json; charset=UTF-8"  };
