@@ -31,6 +31,7 @@ class DB {
     CREATE TABLE purchaseHistory (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       dataCompra INT,
+      foiEnviado INT,
       nomeCarro TEXT,
       valorCarro REAL,
       anoCarro INT, 
@@ -72,7 +73,8 @@ class DB {
       await db.insert(
         'purchaseHistory',
         {
-          'dataCompra': DateTime.now().microsecondsSinceEpoch,
+          'dataCompra': DateTime.now().millisecondsSinceEpoch,
+          'foiEnviado': 0,
           'nomeCarro': car.nomeModelo,
           'valorCarro': car.valor,
           'anoCarro': car.ano,
@@ -91,6 +93,33 @@ class DB {
 
   }
 
+  Future<List<Map<String, dynamic>>> getAllPurchases() async {
+    final Database db = await instance.database;
+
+    final List<Map<String, dynamic>> maps = await db.query('purchaseHistory');
+
+    return maps;
+  }
+
+  Future<void> updatePurchase(List<Map<String, dynamic>> purchases, int numUpdated) async {
+    final Database db = await DB.instance.database;
+
+    await db.transaction(
+      (txn) async {
+        for (var purchase in purchases) {
+          await txn.update(
+            'purchaseHistory',
+            {
+              'foiEnviado': numUpdated,
+            },
+            where: 'id = ?',
+            whereArgs: [purchase['id']]
+          );
+        }
+      }
+    );
+  }
+
   Future<void> _insertUser(String nomeUser, String cpfUser) async {
     final Database db = await instance.database;
 
@@ -102,5 +131,11 @@ class DB {
         },
         conflictAlgorithm: ConflictAlgorithm.ignore,
     );
+  }
+  
+  Future<void> deleteAllPurchases() async {
+    final Database db = await DB.instance.database;
+    
+    await db.delete('purchaseHistory');
   }
 }
