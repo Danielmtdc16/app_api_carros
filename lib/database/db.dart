@@ -22,6 +22,7 @@ class DB {
       onCreate: _onCreate,
     );
   }
+
   _onCreate(db, version) async {
     await db.execute(_purchaseHistory);
     await db.execute(_user);
@@ -50,6 +51,7 @@ class DB {
     );
   ''';
 
+  // funcao para obter todos os usuarios
   Future<Map<String, dynamic>?> getAllUsers() async {
     final Database db = await instance.database;
 
@@ -59,6 +61,8 @@ class DB {
 
   }
 
+  // funcao para inserir uma compra no banco e
+  // inserir o user que realizou a compra
   Future<int> insertPurchase(String nomeUser, String cpfUser, Car car) async {
     final Database db = await instance.database;
 
@@ -93,6 +97,7 @@ class DB {
 
   }
 
+  // funcao para obter todas as compras que estao salvas no banco
   Future<List<Map<String, dynamic>>> getAllPurchases() async {
     final Database db = await instance.database;
 
@@ -101,6 +106,8 @@ class DB {
     return maps;
   }
 
+  // funcao para atualizar as compras que ja foram enviadas
+  // colocando 1 para indicar isso
   Future<void> updatePurchase(List<Map<String, dynamic>> purchases, int numUpdated) async {
     final Database db = await DB.instance.database;
 
@@ -120,6 +127,7 @@ class DB {
     );
   }
 
+  // funcao para inserir um usuario no banco de dados
   Future<void> _insertUser(String nomeUser, String cpfUser) async {
     final Database db = await instance.database;
 
@@ -132,7 +140,8 @@ class DB {
         conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
-  
+
+  // funcao para deletar todos os reistros da tabela de historico de compra
   Future<void> deleteAllPurchases() async {
     final Database db = await DB.instance.database;
     

@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
+    // Faz a consulta na api de carros e coloca os dados na lista _cars
     ConsultaApi.request().then((value) {
       setState(() {
         _cars = value.map((car) => Car.fromJson(car)).toList();

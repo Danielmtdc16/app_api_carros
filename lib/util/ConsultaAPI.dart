@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:app_api_carros/database/db.dart';
 
 class ConsultaApi {
+
+  // requisicao na api de carros
   static Future<List> request() async {
     const String url = "https://wswork.com.br/cars.json";
     
@@ -17,6 +19,9 @@ class ConsultaApi {
     }
   }
 
+  // funcao para enviar os dados para uma api
+  // aqui é verificado as compras que foram enviadas,
+  // enviando apenas aquelas que ainda não foram enviadas
   static Future<void> sendData() async {
     const String url = 'https://inforpiaui.com.br/teste/carro.php';
 

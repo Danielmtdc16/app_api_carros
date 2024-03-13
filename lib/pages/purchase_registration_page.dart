@@ -16,12 +16,15 @@ class PurchaseRegistrationPage extends StatefulWidget {
 
 class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
 
+  // variavel para alertar user da situacao da compra
   String _warningText = 'Compra concluída com Sucesso!';
+
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
   final _cpfController = TextEditingController();
 
+  // funcao para salvar os dados da compra e do usuario no banco de dados
   _savePurchase() async {
     String nomeUser = _nameController.text;
     String cpfUser = _cpfController.text;
@@ -40,6 +43,7 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
     }
   }
 
+  // funcao para chamar uma caixa de dialogo para alertar o usuario sobre a compra
   void _displayPostOperationMessage(BuildContext context) {
     showDialog(
         context: context,
@@ -58,6 +62,7 @@ class _PurchaseRegistrationPageState extends State<PurchaseRegistrationPage> {
     );
   }
 
+  // funcao para preencher os dados do user se já existir um user no banco
   Future<void> _fillInFields() async {
 
     Map<String, dynamic>? user = await DB.instance.getAllUsers();
